@@ -1232,7 +1232,7 @@ int32 map_foreachincell(int32 (*func)(block_list*,va_list), int16 m, int16 x, in
 
 	if( bl_list_count >= BL_LIST_MAX )
 		ShowWarning("map_foreachincell: block count too many!\n");
-	
+
 	FreeBlockLock freeLock;
 
 	for( i = blockcount; i < bl_list_count; i++ ) {
@@ -1756,7 +1756,7 @@ bool map_cell_free(int16 m, int16 x, int16 y, int32 type)
  */
 bool map_search_freecell_dist(int16 m, int16* x, int16* y, int16 distmin, int16 distmax, int32 type)
 {
-	// This is to prevent that always the same quadrant is checked first 
+	// This is to prevent that always the same quadrant is checked first
 	int16 mirrorx = (rnd()%2) ? -1 : 1;
 	int16 mirrory = (rnd()%2) ? -1 : 1;
 
@@ -1871,7 +1871,7 @@ int32 map_search_freecell(block_list *src, int16 m, int16 *x, int16 *y, int16 rx
  * Returns true on success and sets x and y to cell found.
  * Otherwise returns false and x and y are not changed.
  * type: Types of block to count
- * flag: 
+ * flag:
  *		0x1 - only count standing units
  *------------------------------------------*/
 bool map_closest_freecell(int16 m, int16 *x, int16 *y, int32 type, int32 flag)
@@ -1898,7 +1898,7 @@ bool map_closest_freecell(int16 m, int16 *x, int16 *y, int32 type, int32 flag)
 				*y = ty;
 				return true;
 			}
-		} 
+		}
 		//Full diagonal search
 		else if( direction_diagonal( (directions)dir ) && costrange % MOVE_DIAGONAL_COST == 0 ){
 			tx = *x+dx*(costrange/MOVE_DIAGONAL_COST);
@@ -1951,7 +1951,7 @@ bool map_closest_freecell(int16 m, int16 *x, int16 *y, int32 type, int32 flag)
  * Returns true on success and sets x and y to cell found.
  * Otherwise returns false and x and y are not changed.
  * type: Types of block to count
- * flag: 
+ * flag:
  *		0x1 - only count standing units
  *------------------------------------------*/
 bool map_nearby_freecell(int16 m, int16 &x, int16 &y, int32 type, int32 flag)
@@ -2089,7 +2089,7 @@ static DBData create_charid2nick(DBKey key, va_list args)
 void map_addnickdb(int32 charid, const char* nick)
 {
 	struct charid2nick* p;
-	
+
 	if( map_charid2sd(charid) )
 		return;// already online
 
@@ -5412,7 +5412,7 @@ bool MapServer::initialize( int32 argc, char *argv[] ){
 
 	add_timer_func_list(map_clearflooritem_timer, "map_clearflooritem_timer");
 	add_timer_func_list(map_removemobs_timer, "map_removemobs_timer");
-	
+
 	map_do_init_msg();
 	do_init_path();
 	do_init_atcommand();
