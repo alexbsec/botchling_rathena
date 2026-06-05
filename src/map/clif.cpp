@@ -11528,7 +11528,7 @@ void clif_parse_GlobalMessage(int32 fd, map_session_data* sd)
 	// send message to others (using the send buffer for temp. storage)
 	clif_GlobalMessage( *sd, output, sd->chatID ? CHAT_WOS : AREA_CHAT_WOC );
 
-	auto map_name = mapindex_id1name(sd->mapindex);
+	auto map_name = mapindex_id2name(sd->mapindex);
 	botchling_emit_chat_sent(sd->status.account_id, sd->status.char_id, output, map_name);
 
 	length = strlen(output) + 1;

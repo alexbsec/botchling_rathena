@@ -50,6 +50,7 @@ bool botchling_init(const char *socket_path) {
   g_addr.sun_family = AF_UNIX;
   strncpy(g_addr.sun_path, socket_path ? socket_path : SOCKET_PATH,
           sizeof(g_addr.sun_path) - 1);
+	ShowInfo("botchling_init: Initialized with socket path: %s\n", g_addr.sun_path);
   return true;
 }
 
