@@ -52,6 +52,7 @@
 #include "quest.hpp"
 #include "storage.hpp"
 #include "trade.hpp"
+#include "botchling.hpp"
 
 using namespace rathena;
 using namespace rathena::server_map;
@@ -2326,6 +2327,7 @@ int32 map_quit(map_session_data *sd) {
 	pc_clean_skilltree(sd);
 	pc_crimson_marker_clear(sd);
 	pc_macro_detector_disconnect(*sd);
+	botchling_emit_logout(sd->status.account_id, sd->status.char_id);
 	chrif_save(sd, CSAVE_QUIT|CSAVE_INVENTORY|CSAVE_CART);
 	unit_free_pc(sd);
 	return 0;
@@ -5073,6 +5075,7 @@ void MapServer::finalize(){
 	do_final_buyingstore();
 	do_final_path();
 
+	botchling_shutdown();
 	map_db->destroy(map_db, map_db_final);
 
 	for (int32 i = 0; i < map_num; i++) {
@@ -5468,6 +5471,10 @@ bool MapServer::initialize( int32 argc, char *argv[] ){
 	if( console ){ //start listening
 		add_timer_func_list(parse_console_timer, "parse_console_timer");
 		add_timer_interval(gettick()+1000, parse_console_timer, 0, 0, 1000); //start in 1s each 1sec
+	}
+
+	if (!botchling_init("/var/run/botchling/botchling.sock")) {
+		ShowError("Failed to initialize Botchling connection.\n");
 	}
 
 	return true;
